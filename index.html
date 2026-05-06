@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data: blob:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://cdnjs.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>nullbyte0x Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="config.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/marked/16.3.0/lib/marked.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.7/purify.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="toolbar">
+      <div class="toolbar-inner">
+        <a class="site-name" id="site-name" href="#/">nullbyte0x</a>
+        <nav class="toolbar-nav" aria-label="Primary navigation">
+          <a class="toolbar-link" data-nav="home" href="#/">home</a>
+          <div class="toolbar-categories" id="toolbar-categories"></div>
+          <a class="toolbar-link" data-nav="about" href="#/about">about</a>
+          <button class="theme-toggle" id="theme-toggle" type="button">dark</button>
+        </nav>
+      </div>
+    </header>
+    <main class="page-frame">
+      <section class="panel" aria-live="polite">
+        <div class="panel-tab" id="panel-tab">POST LIST</div>
+        <div class="panel-tools" id="panel-tools"></div>
+        <div class="panel-content" id="panel-content"></div>
+      </section>
+    </main>
+    <footer class="status-bar">
+      <div class="status-bar-inner">
+        <span class="status-label" id="status-label">nullbyte0x - security research</span>
+        <span class="status-context" id="status-context">booting client</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
