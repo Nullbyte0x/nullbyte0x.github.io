@@ -2,7 +2,7 @@
 title: Finding a Stack Overflow in JQ
 date: 2026-05-06
 tags: CVE-2026-43896, Vulnerability Research
-description: How did I find a stack overflow in jq JSON parser and few other bugs.
+description: How did I find a stack overflow and few other bugs in jq, the JSON parser.
 ---
 # How I Found the `jq` Object Merge Stack Overflow
 
@@ -58,6 +58,7 @@ That starts with `{}` and keeps wrapping it:
 {a:{a:{a:{}}}}
 ...
 ```
+![Stack view graph](jq_obj_mrg.png)
 
 Once I had that, the full PoC was just:
 
