@@ -1,0 +1,18 @@
+{
+  "generated": "2026-06-03T16:41:41.518Z",
+  "count": 1,
+  "posts": [
+    {
+      "title": "Finding a Stack Overflow in JQ",
+      "date": "2026-05-06",
+      "category": "research",
+      "slug": "jq-object-merge-stack-overflow",
+      "description": "How did I find a stack overflow and few other bugs in jq, the JSON parser.",
+      "tags": [
+        "CVE-2026-43896",
+        "Vulnerability Research"
+      ],
+      "path": "posts/research/jq-object-merge-stack-overflow.md"
+    }
+  ]
+}

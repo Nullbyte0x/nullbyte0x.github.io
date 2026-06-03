@@ -786,6 +786,10 @@
     return {
       mode: "github",
       loadPosts: async function () {
+        const manifest = await loadManifest();
+        if (manifest) {
+          return manifest;
+        }
         const repositoryContext = await resolveRepositoryContext(documentRef, rootWindow);
         const treeUrl = "https://api.github.com/repos/" + encodeURIComponent(repositoryContext.owner) + "/" + encodeURIComponent(repositoryContext.repo) + "/git/trees/" + encodeURIComponent(repositoryContext.branch) + "?recursive=1";
         const treeResponse = await fetchJson(treeUrl, {
@@ -863,6 +867,45 @@
         });
       }
       return repositoryContextPromise;
+    }
+
+    async function loadManifest() {
+      let response;
+      try {
+        response = await fetch("posts/index.json", { headers: { Accept: "application/json" } });
+      } catch (error) {
+        return null;
+      }
+      if (!response || !response.ok) {
+        return null;
+      }
+      let payload;
+      try {
+        payload = await response.json();
+      } catch (error) {
+        return null;
+      }
+      const entries = payload && Array.isArray(payload.posts) ? payload.posts : null;
+      if (!entries) {
+        return null;
+      }
+      const posts = [];
+      const invalidPosts = [];
+      entries.forEach(function (entry) {
+        const normalized = normalizeManifestEntry(entry);
+        if (normalized) {
+          posts.push(normalized);
+        } else {
+          invalidPosts.push({
+            path: entry && entry.path ? String(entry.path) : "unknown",
+            reason: "Invalid manifest entry."
+          });
+        }
+      });
+      if (posts.length === 0) {
+        return null;
+      }
+      return { posts: posts, invalidPosts: invalidPosts };
     }
   }
 
@@ -1059,6 +1102,34 @@
         body: parsedFrontMatter.body,
         path: context.path
       }
+    };
+  }
+
+  function normalizeManifestEntry(entry) {
+    if (!entry || typeof entry !== "object") {
+      return null;
+    }
+    const pathContext = parsePostPath(normalizeTextField(entry.path));
+    if (!pathContext) {
+      return null;
+    }
+    const title = normalizeTextField(entry.title);
+    const date = normalizeDateField(entry.date);
+    if (!title || !date) {
+      return null;
+    }
+    const tags = Array.isArray(entry.tags)
+      ? entry.tags.map(normalizeTextField).filter(Boolean)
+      : normalizeTagList(entry.tags);
+    return {
+      title: title,
+      date: date,
+      category: pathContext.category,
+      slug: pathContext.slug,
+      description: normalizeTextField(entry.description),
+      tags: tags,
+      body: "",
+      path: pathContext.path
     };
   }
 
