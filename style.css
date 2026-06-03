@@ -592,6 +592,7 @@ hr {
   width: 112px;
   aspect-ratio: 1;
   border: 1px solid var(--border-color);
+  border-radius: 50%;
   background: var(--avatar-background);
   object-fit: cover;
 }

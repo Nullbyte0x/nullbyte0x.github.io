@@ -17,7 +17,7 @@ window.NullbyteBlogConfig = {
     bio: [
       "Working as a Security Researcher at ",
       { label: "Thawd", href: "https://www.thawd.com.sa/" },
-      ". I do vulnerability research and reverse engineering for fun. I love understanding how things work. The only thing I love more than code is music and cats!"
+      ". I work on purple teaming, threat detection, threat hunting, and the fun parts of security operations. In my free time, I focus on reverse engineering and exploit development because I’m obsessed with low-level technology and hate not understanding how things work."
     ],
     pfp: "https://media.tenor.com/_WZy7E7hoTcAAAAM/cat-smile.gif",
     links: [
