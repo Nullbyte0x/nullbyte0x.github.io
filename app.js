@@ -586,10 +586,28 @@
         wrapper.appendChild(avatar);
       }
       const body = createElement("div", "about-profile-body");
-      body.appendChild(createParagraph("profile-bio", profile.bio));
+      body.appendChild(createProfileBio(profile.bio));
       body.appendChild(createSocialLinks(profile.links));
       wrapper.appendChild(body);
       return wrapper;
+    }
+
+    function createProfileBio(content) {
+      const paragraph = createElement("p", "profile-bio");
+      if (Array.isArray(content)) {
+        content.forEach(function (part) {
+          if (typeof part === "string") {
+            paragraph.appendChild(documentRef.createTextNode(part));
+          } else if (part && part.href) {
+            paragraph.appendChild(createExternalLink(part.label, part.href, "profile-inline-link"));
+          } else if (part && part.text) {
+            paragraph.appendChild(documentRef.createTextNode(part.text));
+          }
+        });
+      } else {
+        paragraph.textContent = content;
+      }
+      return paragraph;
     }
 
     function createParagraph(className, textValue) {
@@ -1179,7 +1197,7 @@
       profile: {
         name: normalizeTextField(profileConfig.name) || "Ammar Jokhadar",
         handle: normalizeTextField(profileConfig.handle) || "@nullbyte0x",
-        bio: normalizeTextField(profileConfig.bio) || "Security researcher. I do vulnerability research and reverse engineering for fun. Breaking things to understand how they work, then writing about it so others can learn too.",
+        bio: normalizeProfileBio(profileConfig.bio) || "Security researcher. I do vulnerability research and reverse engineering for fun. Breaking things to understand how they work, then writing about it so others can learn too.",
         pfp: normalizeTextField(profileConfig.pfp || profileConfig.avatar),
         links: normalizeLinkItems(profileConfig.links)
       },
@@ -1188,6 +1206,30 @@
         allowToggle: themeConfig.allowToggle !== false
       }
     };
+  }
+
+  function normalizeProfileBio(value) {
+    if (Array.isArray(value)) {
+      const parts = value.map(function (item) {
+        if (typeof item === "string") {
+          return item;
+        }
+        if (!item || typeof item !== "object") {
+          return null;
+        }
+        const text = normalizeTextField(item.text);
+        const label = normalizeTextField(item.label);
+        const href = normalizeTextField(item.href);
+        if (href && label) {
+          return { label: label, href: href };
+        }
+        return text || null;
+      }).filter(function (item) {
+        return item !== null && item !== "";
+      });
+      return parts.length > 0 ? parts : "";
+    }
+    return normalizeTextField(value);
   }
 
   function normalizeLinkItems(linkItems) {

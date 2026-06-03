@@ -558,7 +558,8 @@ hr {
   line-height: 1.6;
 }
 
-.markdown-body a {
+.markdown-body a,
+.profile-inline-link {
   color: var(--accent-blue);
   text-decoration: underline;
   text-decoration-thickness: 1px;

@@ -14,7 +14,11 @@ window.NullbyteBlogConfig = {
   profile: {
     name: "Ammar Jokhadar",
     handle: "@nullbyte0x",
-    bio: "Working as a security researcher at ThawdSecurity. I do vulnerability research and reverse engineering for fun. I love understanding how things work. The only thing I love more than code is music and cats!",
+    bio: [
+      "Working as a Security Researcher at ",
+      { label: "Thawd", href: "https://www.thawd.com.sa/" },
+      ". I do vulnerability research and reverse engineering for fun. I love understanding how things work. The only thing I love more than code is music and cats!"
+    ],
     pfp: "https://media.tenor.com/_WZy7E7hoTcAAAAM/cat-smile.gif",
     links: [
       { label: "Twitter/X", href: "https://x.com/nullbyte0x" },
