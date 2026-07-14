@@ -135,7 +135,7 @@ I liked this one because it was clean:
 - easy path to the vulnerable function
 - easy root cause to explain
 
-Those are the nicest bugs to report. You do not have to spend half the writeup trying to convince anyone that the bug is real.
+Those are the nicest bugs to report.
 
 ## What it turned into
 
@@ -150,7 +150,7 @@ GitHub scored it:
 CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H
 ```
 
-and marked it `Moderate`, which feels fair. It is a real crash, but it is still a stack exhaustion bug, not some dramatic RCE story.
+and marked it `Moderate`, which feels fair. It is a real crash, but it is still a stack exhaustion bug.
 
 ## The useful takeaway
 
@@ -169,18 +169,3 @@ Look at:
 If the code works on nested data, there is a decent chance the same mistake shows up in more than one place.
 
 That was definitely true here.
-
-## Short version
-
-The whole story is basically:
-
-1. I started looking at `jq` because it seemed like a good C target and it had recent security fixes.
-2. I noticed recursive logic around nested values.
-3. I followed the object merge path behind `*`.
-4. I built a deeply nested object directly in `jq`.
-5. I merged it with itself.
-6. `jq` crashed.
-7. ASan confirmed stack overflow.
-8. Reading `jv_object_merge_recursive()` made the root cause obvious.
-
-Sometimes that is all bug hunting really is. Spot a pattern, push it a bit further than the code expects, and see where it breaks.
